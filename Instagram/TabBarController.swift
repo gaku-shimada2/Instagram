@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase // 先頭でFirebaseをimportしておく
+
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
@@ -31,5 +33,17 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             return true
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+         super.viewDidAppear(animated)
+ 
+        // currentUserがnilならログインしていない
+        if Auth.auth().currentUser == nil {
+            // ログインしていないときの処理
+            let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
+            self.present(loginViewController!, animated: true, completion: nil)
+        }
+    }
+
 
 }
